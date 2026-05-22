@@ -135,19 +135,16 @@ const featuredGames = games.slice(0, 3);
        JOIN CTA
   ══════════════════════════════════════════ -->
   <section class="join-section">
-    <div class="container">
-      <div class="join-card reveal">
-        <div class="join-glow" aria-hidden="true"></div>
-        <span class="tag">Команда</span>
-        <h2 class="join-title">Присоединяйся<br />к команде</h2>
-        <p class="join-desc">
-          Ищем талантливых людей, которые любят игры так же, как и мы.
-          Работаем удалённо, ценим инициативу и не делаем скучных вещей.
-        </p>
-        <div class="join-actions">
-          <a href="/jobs" class="btn btn-primary">Смотреть вакансии</a>
-          <a href="mailto:Kurapov.99@yandex.ru" class="btn btn-outline">Написать нам</a>
-        </div>
+    <div class="join-inner reveal">
+      <span class="join-eyebrow">■ Команда</span>
+      <h2 class="join-title">Присоединяйся<br />к команде</h2>
+      <p class="join-desc">
+        Ищем талантливых людей, которые любят игры так же, как и мы.
+        Работаем удалённо, ценим инициативу и не делаем скучных вещей.
+      </p>
+      <div class="join-actions">
+        <a href="/jobs" class="btn-join">Смотреть вакансии</a>
+        <a href="mailto:Kurapov.99@yandex.ru" class="btn-join btn-join-ghost">Написать нам</a>
       </div>
     </div>
   </section>
@@ -390,6 +387,7 @@ const featuredGames = games.slice(0, 3);
   .stats-section {
     padding: 48px 0;
     margin-top: 200px;
+    margin-bottom: 144px;
     overflow: hidden;
   }
 
@@ -569,8 +567,31 @@ const featuredGames = games.slice(0, 3);
 
   /* ── FEATURED GAMES ── */
   .games-section {
+    position: relative;
     padding: 96px 0;
-    background: linear-gradient(180deg, transparent 0%, rgba(17, 17, 24, 0.4) 40%, rgba(17, 17, 24, 0.4) 60%, transparent 100%);
+  }
+
+  .games-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/games-section-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .games-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 16, 0.72);
+    z-index: 1;
+  }
+
+  .games-section .container {
+    position: relative;
+    z-index: 2;
   }
 
   .section-header {
@@ -585,6 +606,14 @@ const featuredGames = games.slice(0, 3);
     margin-bottom: 0;
   }
 
+  .games-section .section-title {
+    font-size: clamp(36px, 5.5vw, 72px);
+    font-weight: 900;
+    line-height: 1.0;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+
   .games-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -593,57 +622,90 @@ const featuredGames = games.slice(0, 3);
 
   /* ── JOIN ── */
   .join-section {
-    padding: 64px 0 96px;
+    background: #E83455;
+    padding: 96px 0;
+    display: flex;
+    justify-content: center;
   }
 
-  .join-card {
-    position: relative;
-    background: var(--color-surface);
-    border-radius: var(--radius-xl);
-    padding: 72px 64px;
-    border: 1px solid rgba(240, 240, 248, 0.06);
-    overflow: hidden;
+  .join-inner {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 24px;
   }
 
-  .join-glow {
-    position: absolute;
-    top: -120px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 480px;
-    height: 480px;
-    background: radial-gradient(circle, rgba(232, 52, 85, 0.1) 0%, transparent 65%);
-    pointer-events: none;
-  }
-
-  .join-card .tag {
-    position: relative;
-    margin-bottom: 20px;
+  .join-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.45);
   }
 
   .join-title {
-    font-size: clamp(28px, 4vw, 54px);
+    font-size: clamp(36px, 5.5vw, 72px);
     font-weight: 900;
-    margin-bottom: 20px;
-    position: relative;
+    line-height: 1.0;
+    text-transform: uppercase;
+    color: #000;
+    margin: 0;
   }
 
   .join-desc {
     font-size: 16px;
-    color: rgba(240, 240, 248, 0.58);
+    color: rgba(0, 0, 0, 0.65);
     max-width: 480px;
-    margin: 0 auto 40px;
     line-height: 1.75;
-    position: relative;
+    margin: 0;
   }
 
   .join-actions {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
-    position: relative;
+    margin-top: 8px;
+  }
+
+  .btn-join {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    border: 1.5px solid rgba(0, 0, 0, 0.35);
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #000;
+    background: transparent;
+    transition: background 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-join:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .btn-join-ghost {
+    border-color: rgba(0, 0, 0, 0.18);
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .btn-join-ghost:hover {
+    color: #000;
+    border-color: rgba(0, 0, 0, 0.4);
+    background: transparent;
   }
 
   /* ── Responsive ── */
