@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GameCard from '../components/GameCard.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
+import { games } from '../data/games';
+
+const platformLabels: Record<string, string> = {
+  browser: 'Браузер',
+  android: 'Android',
+  ios: 'iOS',
+};
+---
+
+<BaseLayout
+  title="Игры"
+  description="Все игры студии MAD GAMES — казуальные и инди-игры для браузера и мобайла"
+>
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="tag reveal">Портфолио</span>
+      <h1 class="page-title reveal">Наши игры</h1>
+      <p class="page-desc reveal">
+        Всё, что мы создали — от уютных головоломок до динамичных аркад.
+        Каждая игра сделана с любовью и вниманием к деталям.
+      </p>
+    </div>
+  </section>
+
+  <!-- Catalog grid -->
+  <section class="catalog-section">
+    <div class="container">
+      <div class="games-grid">
+        {games.map((game, i) => (
+          <div class="reveal" style={`--reveal-delay: ${i * 80}ms`}>
+            <GameCard {...game} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed game sections -->
+  {games.map((game, i) => (
+    <section class:list={['game-detail', { 'detail-even': i % 2 !== 0 }]} id={game.slug}>
+      <div class="container">
+        <div class:list={['detail-grid', { 'detail-grid-reverse': i % 2 !== 0 }]}>
+          <!-- Info -->
+          <div class="detail-info">
+            <div class="detail-meta">
+              <span class="detail-genre">{game.genre}</span>
+              <span class="detail-sep" aria-hidden="true">·</span>
+              <span class="detail-platforms">
+                {game.platform.map(p => platformLabels[p] ?? p).join(' / ')}
+              </span>
+              <span class="detail-sep" aria-hidden="true">·</span>
+              <span class="detail-year">{game.year}</span>
+            </div>
+
+            <h2 class="detail-title reveal">{game.title}</h2>
+            <p class="detail-desc reveal">{game.description}</p>
+
+            <div class="detail-actions reveal" style="--reveal-delay: 80ms">
+              {game.storeUrl.browser && (
+                <a href={game.storeUrl.browser} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                  Играть в браузере
+                </a>
+              )}
+              {game.storeUrl.android && (
+                <a href={game.storeUrl.android} class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                  Google Play
+                </a>
+              )}
+              {game.storeUrl.ios && (
+                <a href={game.storeUrl.ios} class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                  App Store
+                </a>
+              )}
+            </div>
+          </div>
+
+          <!-- Media -->
+          <div class="detail-media reveal" style="--reveal-delay: 60ms">
+            {game.trailerUrl ? (
+              <VideoEmbed url={game.trailerUrl} title={`Трейлер ${game.title}`} />
+            ) : (
+              <img
+                src={game.coverImage}
+                alt={`Обложка игры ${game.title}`}
+                class="detail-cover"
+                loading="lazy"
+              />
+            )}
+
+            {game.screenshots.length > 0 && (
+              <div class="screenshots-row">
+                {game.screenshots.map((src, si) => (
+                  <img
+                    src={src}
+                    alt={`${game.title} — скриншот ${si + 1}`}
+                    loading="lazy"
+                    class="screenshot"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Bottom CTA -->
+  <section class="games-cta">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <h3>Хочешь работать над нашими играми?</h3>
+        <a href="/jobs" class="btn btn-primary">Смотреть вакансии →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Page hero */
+  .page-hero {
+    padding: 148px 0 64px;
+    border-bottom: 1px solid rgba(240, 240, 248, 0.05);
+  }
+
+  .page-hero .tag {
+    margin-bottom: 20px;
+  }
+
+  .page-title {
+    font-size: clamp(40px, 6vw, 82px);
+    font-weight: 900;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
+
+  .page-desc {
+    font-size: 16px;
+    color: rgba(240, 240, 248, 0.58);
+    max-width: 540px;
+    line-height: 1.75;
+  }
+
+  /* Catalog */
+  .catalog-section {
+    padding: 64px 0 32px;
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  /* Detail sections */
+  .game-detail {
+    padding: 80px 0;
+    border-top: 1px solid rgba(240, 240, 248, 0.05);
+  }
+
+  .detail-even {
+    background: rgba(17, 17, 24, 0.5);
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .detail-grid-reverse {
+    direction: rtl;
+  }
+
+  .detail-grid-reverse > * {
+    direction: ltr;
+  }
+
+  .detail-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .detail-genre {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    background: rgba(232, 52, 85, 0.1);
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  .detail-sep {
+    color: rgba(240, 240, 248, 0.2);
+    font-size: 12px;
+  }
+
+  .detail-platforms,
+  .detail-year {
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+
+  .detail-title {
+    font-size: clamp(26px, 3.2vw, 44px);
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .detail-desc {
+    font-size: 15px;
+    color: rgba(240, 240, 248, 0.62);
+    line-height: 1.75;
+    margin-bottom: 28px;
+  }
+
+  .detail-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .detail-cover {
+    width: 100%;
+    border-radius: var(--radius-md);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--color-surface-2);
+  }
+
+  .screenshots-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .screenshot {
+    border-radius: var(--radius-sm);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    width: 100%;
+    background: var(--color-surface-2);
+  }
+
+  /* Bottom CTA */
+  .games-cta {
+    padding: 64px 0 96px;
+  }
+
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    padding: 40px 48px;
+    border: 1px solid rgba(240, 240, 248, 0.06);
+  }
+
+  .cta-inner h3 {
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 900;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .games-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .detail-grid,
+    .detail-grid-reverse {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      direction: ltr;
+    }
+
+    .detail-grid-reverse > * {
+      direction: ltr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 108px 0 48px;
+    }
+
+    .games-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .screenshots-row {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 32px 24px;
+    }
+  }
+</style>

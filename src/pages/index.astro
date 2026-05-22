@@ -1,0 +1,679 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GameCard from '../components/GameCard.astro';
+import { games } from '../data/games';
+
+const featuredGames = games.slice(0, 3);
+---
+
+<BaseLayout
+  title="Главная"
+  description="MAD GAMES — инди-студия, создающая казуальные и инди-игры для браузера и мобайла"
+>
+  <!-- ══════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-floats" aria-hidden="true">
+      <div class="fobj fobj-1" style="--r:-11deg" data-rotate="-11" data-depth="0.4"><div class="fobj-inner"><img src="/images/games/lava-escape/cover.jpg" alt="" /></div></div>
+      <div class="fobj fobj-2" style="--r:8deg"  data-rotate="8"   data-depth="0.7"><div class="fobj-inner"><img src="/images/games/neon-jumper/cover.jpg" alt="" /></div></div>
+      <div class="fobj fobj-3" style="--r:-6deg" data-rotate="-6"  data-depth="0.5"><div class="fobj-inner"><img src="/images/games/bubble-kingdom/cover.jpg" alt="" /></div></div>
+      <div class="fobj fobj-4" style="--r:9deg"  data-rotate="9"   data-depth="0.6"><div class="fobj-inner"><img src="/images/games/star-raider/cover.jpg" alt="" /></div></div>
+      <div class="fobj fobj-5" style="--r:-4deg" data-rotate="-4"  data-depth="0.3"><div class="fobj-inner"><img src="/images/games/steel-wheels/cover.jpg" alt="" /></div></div>
+      <div class="fobj fobj-6" style="--r:7deg"  data-rotate="7"   data-depth="0.8"><div class="fobj-inner"><img src="/images/games/forest-spirits/cover.jpg" alt="" /></div></div>
+    </div>
+
+    <div class="hero-center">
+      <span class="hero-eyebrow">■ MAD GAMES</span>
+      <h1 class="hero-title">
+        Создаём игры,<br />в&nbsp;которые<br />хочется играть
+      </h1>
+      <div class="hero-actions">
+        <a href="/games" class="btn-hero">Наши игры ▾</a>
+        <a href="/jobs" class="btn-hero btn-hero-ghost">Вакансии ▾</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       STATS
+  ══════════════════════════════════════════ -->
+  <section class="stats-section" aria-label="Показатели студии">
+    <div class="stats-ticker">
+      <div class="stats-track" id="statsTrack">
+        <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Игр выпущено</span></div>
+        <span class="stat-sep" aria-hidden="true">✦</span>
+        <div class="stat"><span class="stat-num">500K+</span><span class="stat-label">Игроков</span></div>
+        <span class="stat-sep" aria-hidden="true">✦</span>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Платформы</span></div>
+        <span class="stat-sep" aria-hidden="true">✦</span>
+        <div class="stat"><span class="stat-num">2020</span><span class="stat-label">Год основания</span></div>
+        <span class="stat-sep" aria-hidden="true">✦</span>
+        <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Игр выпущено</span></div>
+        <span class="stat-sep" aria-hidden="true">✦</span>
+        <div class="stat"><span class="stat-num">500K+</span><span class="stat-label">Игроков</span></div>
+        <span class="stat-sep" aria-hidden="true">✦</span>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Платформы</span></div>
+        <span class="stat-sep" aria-hidden="true">✦</span>
+        <div class="stat"><span class="stat-num">2020</span><span class="stat-label">Год основания</span></div>
+        <span class="stat-sep" aria-hidden="true">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════════ -->
+  <section class="about-section">
+    <div class="about-inner">
+      <div class="about-header reveal">
+        <span class="about-eyebrow">■ О студии</span>
+        <h2 class="about-title">Маленькая студия.<br />Большие игры.</h2>
+      </div>
+
+      <div class="about-cards-row">
+        <div class="about-icard reveal">
+          <div class="about-icard-img">
+            <img src="/images/about/illus-1.png" alt="Геймплей прежде всего" loading="lazy" />
+          </div>
+          <div class="about-icard-body">
+            <span class="icard-label">■ Геймплей</span>
+            <h3 class="icard-title">Геймплей прежде всего</h3>
+            <p class="icard-text">Мы начинаем с ощущений, а не с графики</p>
+          </div>
+        </div>
+
+        <div class="about-icard reveal" style="--reveal-delay: 100ms">
+          <div class="about-icard-img">
+            <img src="/images/about/illus-2.png" alt="Авторский стиль" loading="lazy" />
+          </div>
+          <div class="about-icard-body">
+            <span class="icard-label">■ Стиль</span>
+            <h3 class="icard-title">Авторский стиль</h3>
+            <p class="icard-text">Каждая игра узнаваема с первого взгляда</p>
+          </div>
+        </div>
+
+        <div class="about-icard reveal" style="--reveal-delay: 200ms">
+          <div class="about-icard-img">
+            <img src="/images/about/illus-3.png" alt="Быстро и качественно" loading="lazy" />
+          </div>
+          <div class="about-icard-body">
+            <span class="icard-label">■ Команда</span>
+            <h3 class="icard-title">Быстро и качественно</h3>
+            <p class="icard-text">Небольшая команда — меньше компромиссов</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       FEATURED GAMES
+  ══════════════════════════════════════════ -->
+  <section class="games-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="tag">Наши игры</span>
+          <h2 class="section-title" style="margin-top: 12px">Последние релизы</h2>
+        </div>
+        <a href="/games" class="btn btn-outline">Все игры →</a>
+      </div>
+
+      <div class="games-grid">
+        {featuredGames.map((game, i) => (
+          <div class="reveal" style={`--reveal-delay: ${i * 100}ms`}>
+            <GameCard {...game} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       JOIN CTA
+  ══════════════════════════════════════════ -->
+  <section class="join-section">
+    <div class="container">
+      <div class="join-card reveal">
+        <div class="join-glow" aria-hidden="true"></div>
+        <span class="tag">Команда</span>
+        <h2 class="join-title">Присоединяйся<br />к команде</h2>
+        <p class="join-desc">
+          Ищем талантливых людей, которые любят игры так же, как и мы.
+          Работаем удалённо, ценим инициативу и не делаем скучных вещей.
+        </p>
+        <div class="join-actions">
+          <a href="/jobs" class="btn btn-primary">Смотреть вакансии</a>
+          <a href="mailto:Kurapov.99@yandex.ru" class="btn btn-outline">Написать нам</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // ── Hero cards: ambient drift + 3D cursor follow ──
+  const hero = document.querySelector('.hero') as HTMLElement | null;
+  const fobjCards = document.querySelectorAll<HTMLElement>('.fobj');
+
+  if (hero && fobjCards.length) {
+    let targetDx = 0, targetDy = 0;
+    let currentDx = 0, currentDy = 0;
+    let mouseInside = false;
+    let driftTime = 0;
+
+    const driftParams = Array.from(fobjCards).map((_, i) => ({
+      phase:  i * (Math.PI * 2 / fobjCards.length),
+      freqX:  0.50 + i * 0.08,
+      freqY:  0.40 + i * 0.06,
+    }));
+
+    hero.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = hero.getBoundingClientRect();
+      targetDx = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
+      targetDy = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
+      mouseInside = true;
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      mouseInside = false;
+      targetDx = 0;
+      targetDy = 0;
+    });
+
+    (function loop() {
+      driftTime += 0.01;
+
+      const lerpK = mouseInside ? 0.08 : 0.05;
+      currentDx += (targetDx - currentDx) * lerpK;
+      currentDy += (targetDy - currentDy) * lerpK;
+
+      fobjCards.forEach((card, i) => {
+        const depth  = parseFloat(card.dataset.depth  || '0.5');
+        const rotate = parseFloat(card.dataset.rotate || '0');
+        const dp = driftParams[i];
+
+        const driftX = Math.sin(driftTime * dp.freqX + dp.phase) * 40;
+        const driftY = Math.cos(driftTime * dp.freqY + dp.phase * 1.3) * 40;
+
+        const tx   = currentDx * 60 * depth + driftX;
+        const ty   = currentDy * 40 * depth + driftY;
+        const ry   =  currentDx * 36 * depth;
+        const rx   = -currentDy * 24 * depth;
+        const tilt =  currentDx *  4 * depth;
+
+        card.style.transform = `perspective(700px) rotateY(${ry}deg) rotateX(${rx}deg) rotate(${rotate + tilt}deg) translate(${tx}px, ${ty}px)`;
+      });
+
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  // ── About cards: 3D tilt on hover ──
+  document.querySelectorAll<HTMLElement>('.about-icard').forEach(card => {
+    card.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const dx = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
+      const dy = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
+      const ry =  dx * 14;
+      const rx = -dy * 10;
+      card.style.transition = 'transform 0.08s ease-out';
+      card.style.transform = `perspective(800px) rotateY(${ry}deg) rotateX(${rx}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.5s ease-out';
+      card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg)';
+    });
+  });
+
+  // ── Scroll-driven ticker ──
+  const track = document.getElementById('statsTrack') as HTMLElement | null;
+
+  if (track) {
+    let lastScroll = 0;
+    let offset = 0;
+    const speed = 0.25; // px сдвига на px скролла
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const delta = scrollY - lastScroll;
+      lastScroll = scrollY;
+      offset += delta * speed;
+
+      // бесшовный цикл: ширина одной копии = 50% track
+      const halfWidth = track.scrollWidth / 2;
+      if (offset > halfWidth) offset -= halfWidth;
+      if (offset < 0)         offset += halfWidth;
+
+      track.style.transform = `translateX(-${offset}px)`;
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
+    z-index: 0;
+  }
+
+  /* Floating game covers */
+  .hero-floats {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .fobj {
+    position: absolute;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.8);
+    transform: rotate(var(--r, 0deg));
+    will-change: transform;
+    transition: none;
+  }
+
+  .fobj-inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  .fobj img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .fobj-1 { width: 420px; height: 263px; top: 5%;     left: 6%;   --fd: 7s; }
+  .fobj-2 { width: 360px; height: 225px; top: 5%;     right: 6%;  --fd: 8.5s; }
+  .fobj-3 { width: 400px; height: 250px; top: 35%;    right: 4%;  --fd: 9s; }
+  .fobj-4 { width: 330px; height: 206px; bottom: 12%; left: 6%;   --fd: 7.5s; }
+  .fobj-5 { width: 410px; height: 256px; bottom: 5%;  right: 6%;  --fd: 10s; }
+  .fobj-6 { width: 350px; height: 219px; bottom: 5%;  left: 22%;  --fd: 11s; }
+
+  /* Centered content */
+  .hero-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 36px;
+    padding: 100px 24px 80px;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 240, 248, 0.4);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 9vw, 120px);
+    font-weight: 900;
+    line-height: 0.93;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    text-transform: uppercase;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: 1.5px solid rgba(240, 240, 248, 0.3);
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    background: transparent;
+    transition: border-color 0.25s, background 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-hero:hover {
+    border-color: rgba(240, 240, 248, 0.7);
+    background: rgba(240, 240, 248, 0.06);
+  }
+
+  .btn-hero-ghost {
+    border-color: rgba(240, 240, 248, 0.12);
+    color: rgba(240, 240, 248, 0.5);
+  }
+
+  .btn-hero-ghost:hover {
+    border-color: rgba(240, 240, 248, 0.4);
+    color: var(--color-text);
+    background: transparent;
+  }
+
+  /* ── STATS TICKER ── */
+  .stats-section {
+    padding: 48px 0;
+    margin-top: 200px;
+    overflow: hidden;
+  }
+
+  .stats-ticker {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+  }
+
+  .stats-track {
+    display: flex;
+    align-items: flex-start;
+    gap: 64px;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(80px, 10vw, 140px);
+    font-weight: 900;
+    color: var(--color-text);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .stat-label {
+    font-size: clamp(11px, 1.2vw, 15px);
+    color: var(--color-text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .stat-sep {
+    font-size: 28px;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    opacity: 0.5;
+    align-self: center;
+    margin-top: -16px;
+  }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: #E83455;
+    padding: 96px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .about-inner {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+  }
+
+  .about-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .about-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  .about-title {
+    font-size: clamp(36px, 5.5vw, 72px);
+    font-weight: 900;
+    line-height: 1.0;
+    text-transform: uppercase;
+    color: #000;
+  }
+
+  .btn-about {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: 1.5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #000;
+    background: transparent;
+    transition: background 0.2s, border-color 0.2s;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .btn-about:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .about-cards-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .about-icard {
+    background: #0a0a10;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-icard-img {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .about-icard-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .about-icard:hover .about-icard-img img {
+    transform: scale(1.04);
+  }
+
+  .about-icard-body {
+    padding: 24px 24px 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .icard-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 240, 248, 0.35);
+  }
+
+  .icard-title {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.8vw, 22px);
+    font-weight: 900;
+    color: #f0f0f8;
+    line-height: 1.1;
+  }
+
+  .icard-text {
+    font-size: 13px;
+    color: rgba(240, 240, 248, 0.5);
+    line-height: 1.65;
+  }
+
+  /* ── FEATURED GAMES ── */
+  .games-section {
+    padding: 96px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(17, 17, 24, 0.4) 40%, rgba(17, 17, 24, 0.4) 60%, transparent 100%);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    gap: 16px;
+  }
+
+  .section-header .tag {
+    margin-bottom: 0;
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  /* ── JOIN ── */
+  .join-section {
+    padding: 64px 0 96px;
+  }
+
+  .join-card {
+    position: relative;
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    padding: 72px 64px;
+    border: 1px solid rgba(240, 240, 248, 0.06);
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .join-glow {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(232, 52, 85, 0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .join-card .tag {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .join-title {
+    font-size: clamp(28px, 4vw, 54px);
+    font-weight: 900;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .join-desc {
+    font-size: 16px;
+    color: rgba(240, 240, 248, 0.58);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.75;
+    position: relative;
+  }
+
+  .join-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .fobj-3, .fobj-4 { display: none; }
+    .about-cards-row { grid-template-columns: repeat(2, 1fr); }
+    .games-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .fobj-1, .fobj-2, .fobj-5, .fobj-6 { display: none; }
+    .hero-center { padding-top: 120px; padding-bottom: 80px; }
+    .about-cards-row { grid-template-columns: 1fr; }
+    .about-header { flex-direction: column; align-items: flex-start; }
+
+    .stat {
+      /* ticker handles mobile automatically */
+    }
+
+    .games-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .join-card {
+      padding: 48px 24px;
+    }
+  }
+</style>

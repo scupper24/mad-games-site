@@ -1,0 +1,419 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JobCard from '../components/JobCard.astro';
+import { jobs } from '../data/jobs';
+---
+
+<BaseLayout
+  title="Вакансии"
+  description="Открытые вакансии студии MAD GAMES — присоединяйся к команде"
+>
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="tag reveal">Команда</span>
+      <h1 class="page-title reveal">Вакансии</h1>
+      <p class="page-desc reveal">
+        Ищем талантливых людей, которые любят игры. Работаем удалённо,
+        двигаемся быстро и делаем вещи с душой.
+      </p>
+    </div>
+  </section>
+
+  <!-- Why us -->
+  <section class="why-section">
+    <div class="container">
+      <h2 class="why-title reveal">Почему MAD GAMES?</h2>
+      <div class="perks-grid">
+        <div class="perk reveal">
+          <div class="perk-icon" aria-hidden="true">🌍</div>
+          <h4>Полная удалёнка</h4>
+          <p>Работай откуда угодно. Главное — результат</p>
+        </div>
+        <div class="perk reveal" style="--reveal-delay: 80ms">
+          <div class="perk-icon" aria-hidden="true">🚀</div>
+          <h4>Быстрый рост</h4>
+          <p>Небольшая команда = быстрые решения и реальное влияние</p>
+        </div>
+        <div class="perk reveal" style="--reveal-delay: 160ms">
+          <div class="perk-icon" aria-hidden="true">🎯</div>
+          <h4>Реальные проекты</h4>
+          <p>Твоя работа выходит в релиз и играется сотнями тысяч людей</p>
+        </div>
+        <div class="perk reveal" style="--reveal-delay: 240ms">
+          <div class="perk-icon" aria-hidden="true">🤝</div>
+          <h4>Честная атмосфера</h4>
+          <p>Без бюрократии, с уважением и прямым фидбеком</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job listings -->
+  <section class="jobs-section">
+    <div class="container">
+      <div class="jobs-header reveal">
+        <h2 class="section-title">Открытые позиции</h2>
+        <span class="jobs-badge">{jobs.length} вакансии</span>
+      </div>
+
+      <div class="jobs-list">
+        {jobs.map((job, i) => (
+          <div class="reveal" style={`--reveal-delay: ${i * 80}ms`}>
+            <JobCard {...job} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Application form -->
+  <section class="apply-section" id="apply">
+    <div class="container">
+      <div class="apply-card reveal">
+        <div class="apply-info">
+          <span class="tag">Отклик</span>
+          <h2 class="apply-title">Хочешь к нам?</h2>
+          <p class="apply-desc">
+            Заполни форму — ответим в течение 2–3 рабочих дней. Или напиши
+            напрямую:&nbsp;
+            <a href="mailto:Kurapov.99@yandex.ru">Kurapov.99@yandex.ru</a>
+          </p>
+          <div class="apply-note">
+            <span class="apply-note-icon" aria-hidden="true">💡</span>
+            Даже если подходящей вакансии нет — пиши. Рассматриваем сильных
+            специалистов в любое время.
+          </div>
+        </div>
+
+        <form
+          class="apply-form"
+          action={`mailto:Kurapov.99@yandex.ru`}
+          method="POST"
+          enctype="text/plain"
+          id="apply-form"
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name" class="form-label">Имя *</label>
+              <input
+                type="text"
+                id="name"
+                name="Имя"
+                required
+                class="form-input"
+                placeholder="Иван Иванов"
+                autocomplete="name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="position" class="form-label">Желаемая должность *</label>
+              <input
+                type="text"
+                id="position"
+                name="Должность"
+                required
+                class="form-input"
+                placeholder="2D Художник"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="portfolio" class="form-label">Ссылка на портфолио / резюме *</label>
+            <input
+              type="url"
+              id="portfolio"
+              name="Портфолио"
+              required
+              class="form-input"
+              placeholder="https://..."
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Сообщение</label>
+            <textarea
+              id="message"
+              name="Сообщение"
+              class="form-textarea"
+              rows="4"
+              placeholder="Расскажи немного о себе и своём опыте"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-submit">
+            Отправить отклик →
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Page hero */
+  .page-hero {
+    padding: 148px 0 64px;
+    border-bottom: 1px solid rgba(240, 240, 248, 0.05);
+  }
+
+  .page-hero .tag {
+    margin-bottom: 20px;
+  }
+
+  .page-title {
+    font-size: clamp(40px, 6vw, 82px);
+    font-weight: 900;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
+
+  .page-desc {
+    font-size: 16px;
+    color: rgba(240, 240, 248, 0.58);
+    max-width: 520px;
+    line-height: 1.75;
+  }
+
+  /* Why section */
+  .why-section {
+    padding: 80px 0 64px;
+  }
+
+  .why-title {
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 900;
+    margin-bottom: 40px;
+  }
+
+  .perks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .perk {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 28px 22px;
+    border: 1px solid rgba(240, 240, 248, 0.05);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .perk:hover {
+    border-color: rgba(255, 140, 32, 0.2);
+    transform: translateY(-4px);
+  }
+
+  .perk-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    line-height: 1;
+  }
+
+  .perk h4 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+
+  .perk p {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+  }
+
+  /* Jobs */
+  .jobs-section {
+    padding: 16px 0 80px;
+  }
+
+  .jobs-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    font-size: clamp(22px, 2.8vw, 34px);
+    font-weight: 900;
+  }
+
+  .jobs-badge {
+    background: rgba(232, 52, 85, 0.1);
+    color: var(--color-accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+
+  .jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* Apply section */
+  .apply-section {
+    padding: 64px 0 96px;
+  }
+
+  .apply-card {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 64px;
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    padding: 56px 64px;
+    border: 1px solid rgba(240, 240, 248, 0.06);
+  }
+
+  .apply-info .tag {
+    margin-bottom: 20px;
+  }
+
+  .apply-title {
+    font-size: clamp(24px, 3vw, 42px);
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .apply-desc {
+    font-size: 14px;
+    color: rgba(240, 240, 248, 0.58);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .apply-desc a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .apply-note {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: rgba(240, 240, 248, 0.04);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+    border: 1px solid rgba(240, 240, 248, 0.06);
+  }
+
+  .apply-note-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+
+  .apply-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(240, 240, 248, 0.65);
+    letter-spacing: 0.02em;
+  }
+
+  .form-input,
+  .form-textarea {
+    background: rgba(240, 240, 248, 0.04);
+    border: 1.5px solid rgba(240, 240, 248, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-text);
+    transition: border-color 0.2s ease, background 0.2s ease;
+    width: 100%;
+    resize: vertical;
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.6;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background: rgba(232, 52, 85, 0.04);
+  }
+
+  .form-submit {
+    align-self: flex-start;
+    padding: 14px 36px;
+    font-size: 15px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .perks-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .apply-card {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 108px 0 48px;
+    }
+
+    .perks-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .apply-card {
+      padding: 32px 20px;
+    }
+
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .perks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

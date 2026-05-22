@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Страница не найдена">
+  <section class="not-found">
+    <div class="container">
+      <div class="nf-content">
+        <span class="nf-code" aria-hidden="true">404</span>
+        <h1 class="nf-title">Страница не найдена</h1>
+        <p class="nf-desc">
+          Такой страницы не существует, или она была удалена.
+        </p>
+        <div class="nf-actions">
+          <a href="/" class="btn btn-primary">На главную</a>
+          <a href="/games" class="btn btn-outline">Игры</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+
+  .nf-content {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .nf-code {
+    font-family: var(--font-display);
+    font-size: 120px;
+    font-weight: 900;
+    line-height: 1;
+    display: block;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .nf-title {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 14px;
+  }
+
+  .nf-desc {
+    font-size: 15px;
+    color: rgba(240, 240, 248, 0.58);
+    margin-bottom: 36px;
+  }
+
+  .nf-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
