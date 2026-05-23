@@ -35,6 +35,7 @@ No test or lint runner is configured.
 | `--color-bg` | `#0a0a10` | Page background |
 | `--color-surface` | `#111118` / `#181820` | Cards/sections |
 | `--color-text` | `#F0F0F8` | Body text |
+| `--color-accent-purple` | `#AE80EE` | Purple accent (join section bg) |
 
 Fonts: **Unbounded** (display/headings) · **Inter/Figtree** (body). Fluid sizing via `clamp()`.
 
@@ -54,3 +55,7 @@ Game images follow the pattern `public/images/games/{slug}/{cover.jpg, screen1.j
 ## Path alias
 
 `@/*` resolves to `src/*` (configured in `tsconfig.json`).
+
+## Git rules
+
+**Never run `git push` without explicit user instruction.** Make commits freely, but always wait for the user to say "запушь" / "push" before pushing to remote.
