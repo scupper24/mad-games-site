@@ -35,22 +35,37 @@ No test or lint runner is configured.
 | `--color-bg` | `#0a0a10` | Page background |
 | `--color-surface` | `#111118` / `#181820` | Cards/sections |
 | `--color-text` | `#F0F0F8` | Body text |
-| `--color-accent-purple` | `#AE80EE` | Purple accent (join section bg) |
+| `--color-text-muted` | `#5e5e78` | Muted text |
+| `--color-accent-purple` | `#AE80EE` | Purple accent (CTA sections bg) |
 
-Fonts: **Unbounded** (display/headings) · **Inter/Figtree** (body). Fluid sizing via `clamp()`.
+Fonts: **Unbounded** (`--font-display`, headings) · **Inter** (`--font-body`, body). Fluid sizing via `clamp()`.
 
 ## Public assets
 
-Game images follow the pattern `public/images/games/{slug}/{cover.jpg, screen1.jpg, screen2.jpg}`. The slug must match the `id` field in `src/data/games.ts`. About illustrations are `public/images/about/illus-{1,2,3}.png`.
-
-`_refs/` contains design reference screenshots — read-only, not served.
+- Game images: `public/images/games/{slug}/{cover.jpg, screen1.jpg, screen2.jpg}`. Slug must match `slug` field in `src/data/games.ts`.
+- About illustrations: `public/images/about/illus-{1,2,3}.png`
+- Videos: `public/videos/` — e.g. `games-section-bg.mp4` (main page), `games-showreel.mp4` (games hero)
+- `_refs/` — design reference screenshots, read-only, not served
 
 ## Key interaction patterns
 
-- **Hero parallax** (`index.astro`): RAF loop with sine/cosine ambient drift + mouse-following offset on floating game cards.
-- **Stats ticker**: Scroll-driven infinite loop; resets transform at −50% to create seamless repeat.
-- **Scroll reveals**: `IntersectionObserver` in `BaseLayout.astro` triggers `.reveal` → `visible` class; stagger controlled by `--reveal-delay` inline style.
-- **Contact form** (`jobs.astro`): `mailto:` link only — no backend.
+- **Hero parallax** (`index.astro`): RAF loop with sine/cosine ambient drift + mouse-following offset on floating game cards (`data-depth`, `data-rotate` attributes drive per-card intensity).
+- **Stacking game cards** (`games.astro`): `position: sticky` stage + `position: absolute` cards. JS computes translateY/scale targets per-card from scroll position, then lerps current state toward target each RAF frame (EASE=0.1 ≈ 150ms settle). Cards park at `translateY(110vh)` before their turn; last card skips scale-down.
+- **Stats ticker** (`index.astro`): scroll-delta driven; offset resets at −50% of track width for seamless loop.
+- **Scroll reveals**: `IntersectionObserver` in `BaseLayout.astro` adds `.visible` to `.reveal` elements; stagger via `--reveal-delay` inline style.
+- **Contact form** (`jobs.astro`): `mailto:` only — no backend.
+
+## Header behaviour
+
+`Header.astro` adds class `.scrolled` (dark backdrop + blur) when `window.scrollY > 60` via a scroll listener. To force the scrolled appearance on a specific page without touching the shared component, add class `always-scrolled` from that page's `<script>` and override it with `:global(.header.always-scrolled)` in that page's `<style>`. Currently applied on `games.astro`.
+
+## Coloured section pattern (purple CTA)
+
+Sections with `background: #AE80EE` require local overrides for all child elements — the global `.tag` class renders a red `■` via `::before` and is incompatible with coloured backgrounds. Use a local eyebrow class (e.g. `.apply-eyebrow`, `.gcta-eyebrow`) instead. The global `.btn-primary:hover` adds a red box-shadow; suppress it with `box-shadow: none` in the local hover override.
+
+## Video backgrounds
+
+Pattern used on `index.astro` (games section) and `games.astro` (hero): `<video autoplay muted loop playsinline>` absolutely positioned with `object-fit: cover`, covered by a semi-transparent overlay div. Overlay opacity typically `rgba(10, 10, 16, 0.62–0.72)`.
 
 ## Path alias
 
@@ -58,4 +73,4 @@ Game images follow the pattern `public/images/games/{slug}/{cover.jpg, screen1.j
 
 ## Git rules
 
-**Never run `git push` without explicit user instruction.** Make commits freely, but always wait for the user to say "запушь" / "push" before pushing to remote.
+**Never run `git push` without explicit user instruction.** Wait for the user to say "запушь" / "push" before pushing to remote.

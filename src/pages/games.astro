@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import GameCard from '../components/GameCard.astro';
-import VideoEmbed from '../components/VideoEmbed.astro';
 import { games } from '../data/games';
 
 const platformLabels: Record<string, string> = {
@@ -16,173 +14,230 @@ const platformLabels: Record<string, string> = {
   description="Все игры студии MAD GAMES — казуальные и инди-игры для браузера и мобайла"
 >
   <!-- Page hero -->
-  <section class="page-hero">
-    <div class="container">
-      <span class="tag reveal">Портфолио</span>
-      <h1 class="page-title reveal">Наши игры</h1>
-      <p class="page-desc reveal">
+  <section class="games-hero">
+    <video class="games-hero-video" autoplay muted loop playsinline poster="/images/games/lava-escape/cover.jpg">
+      <source src="/videos/games-showreel.mp4" type="video/mp4" />
+    </video>
+    <div class="games-hero-overlay"></div>
+    <div class="games-hero-center">
+      <span class="games-hero-eyebrow">■ Портфолио</span>
+      <h1 class="games-hero-title">Наши игры</h1>
+      <p class="games-hero-desc">
         Всё, что мы создали — от уютных головоломок до динамичных аркад.
         Каждая игра сделана с любовью и вниманием к деталям.
       </p>
     </div>
   </section>
 
-  <!-- Catalog grid -->
-  <section class="catalog-section">
-    <div class="container">
-      <div class="games-grid">
-        {games.map((game, i) => (
-          <div class="reveal" style={`--reveal-delay: ${i * 80}ms`}>
-            <GameCard {...game} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Detailed game sections -->
-  {games.map((game, i) => (
-    <section class:list={['game-detail', { 'detail-even': i % 2 !== 0 }]} id={game.slug}>
-      <div class="container">
-        <div class:list={['detail-grid', { 'detail-grid-reverse': i % 2 !== 0 }]}>
-          <!-- Info -->
-          <div class="detail-info">
-            <div class="detail-meta">
-              <span class="detail-genre">{game.genre}</span>
-              <span class="detail-sep" aria-hidden="true">·</span>
-              <span class="detail-platforms">
-                {game.platform.map(p => platformLabels[p] ?? p).join(' / ')}
-              </span>
-              <span class="detail-sep" aria-hidden="true">·</span>
-              <span class="detail-year">{game.year}</span>
-            </div>
-
-            <h2 class="detail-title reveal">{game.title}</h2>
-            <p class="detail-desc reveal">{game.description}</p>
-
-            <div class="detail-actions reveal" style="--reveal-delay: 80ms">
-              {game.storeUrl.browser && (
-                <a href={game.storeUrl.browser} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                  Играть в браузере
-                </a>
-              )}
-              {game.storeUrl.android && (
-                <a href={game.storeUrl.android} class="btn btn-outline" target="_blank" rel="noopener noreferrer">
-                  Google Play
-                </a>
-              )}
-              {game.storeUrl.ios && (
-                <a href={game.storeUrl.ios} class="btn btn-outline" target="_blank" rel="noopener noreferrer">
-                  App Store
-                </a>
-              )}
-            </div>
-          </div>
-
-          <!-- Media -->
-          <div class="detail-media reveal" style="--reveal-delay: 60ms">
-            {game.trailerUrl ? (
-              <VideoEmbed url={game.trailerUrl} title={`Трейлер ${game.title}`} />
-            ) : (
-              <img
-                src={game.coverImage}
-                alt={`Обложка игры ${game.title}`}
-                class="detail-cover"
-                loading="lazy"
-              />
-            )}
-
-            {game.screenshots.length > 0 && (
-              <div class="screenshots-row">
-                {game.screenshots.map((src, si) => (
-                  <img
-                    src={src}
-                    alt={`${game.title} — скриншот ${si + 1}`}
-                    loading="lazy"
-                    class="screenshot"
-                  />
-                ))}
+  <!-- Stacking game cards -->
+  <div class="cards-scene" id="cardsScene">
+    <div class="cards-stage" id="cardsStage">
+      {games.map((game, i) => (
+        <article class="game-fullscreen" id={game.slug} data-card-idx={i} style={`z-index: ${i + 1}`}>
+          <img class="gfs-bg" src={game.coverImage} alt="" aria-hidden="true" />
+          <div class="gfs-gradient" aria-hidden="true"></div>
+          <div class="gfs-content">
+            <div class="gfs-left">
+              <div class="gfs-meta">
+                <span class="gfs-genre">{game.genre}</span>
+                <span class="gfs-sep" aria-hidden="true">·</span>
+                <span class="gfs-platforms">{game.platform.map((p: string) => platformLabels[p] ?? p).join(' / ')}</span>
+                <span class="gfs-sep" aria-hidden="true">·</span>
+                <span class="gfs-year">{game.year}</span>
               </div>
-            )}
+              <h2 class="gfs-title">{game.title}</h2>
+            </div>
+            <div class="gfs-right">
+              <p class="gfs-desc">{game.description}</p>
+              <div class="gfs-actions">
+                {game.storeUrl.browser && (
+                  <a href={game.storeUrl.browser} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    Играть в браузере
+                  </a>
+                )}
+                {game.storeUrl.android && (
+                  <a href={game.storeUrl.android} class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                    Google Play
+                  </a>
+                )}
+                {game.storeUrl.ios && (
+                  <a href={game.storeUrl.ios} class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                    App Store
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
-  ))}
+        </article>
+      ))}
+    </div>
+  </div>
 
   <!-- Bottom CTA -->
   <section class="games-cta">
-    <div class="container">
-      <div class="cta-inner reveal">
-        <h3>Хочешь работать над нашими играми?</h3>
-        <a href="/jobs" class="btn btn-primary">Смотреть вакансии →</a>
+    <div class="gcta-inner reveal">
+      <span class="gcta-eyebrow">■ Карьера</span>
+      <h2 class="gcta-title">Хочешь работать<br />над нашими играми?</h2>
+      <p class="gcta-desc">
+        Ищем талантливых людей, которые хотят делать крутые игры.
+        Работаем удалённо, ценим инициативу.
+      </p>
+      <div class="gcta-actions">
+        <a href="/jobs" class="btn-gcta">Смотреть вакансии</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  /* Always-visible header bg on this page */
+  :global(.header.always-scrolled) {
+    background: rgba(10, 10, 16, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 14px 0;
+    border-bottom-color: rgba(240, 240, 248, 0.06);
+  }
+
   /* Page hero */
-  .page-hero {
-    padding: 148px 0 64px;
-    border-bottom: 1px solid rgba(240, 240, 248, 0.05);
+  .games-hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
   }
 
-  .page-hero .tag {
-    margin-bottom: 20px;
+  .games-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
   }
 
-  .page-title {
-    font-size: clamp(40px, 6vw, 82px);
+  .games-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 16, 0.62);
+    z-index: 1;
+  }
+
+  .games-hero-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
+    padding: 100px 24px 80px;
+    max-width: 900px;
+  }
+
+  .games-hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 240, 248, 0.4);
+  }
+
+  .games-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 9vw, 120px);
     font-weight: 900;
-    margin-bottom: 20px;
-    line-height: 1;
+    line-height: 0.93;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    text-transform: uppercase;
   }
 
-  .page-desc {
+  .games-hero-desc {
     font-size: 16px;
     color: rgba(240, 240, 248, 0.58);
     max-width: 540px;
     line-height: 1.75;
   }
 
-  /* Catalog */
-  .catalog-section {
-    padding: 64px 0 32px;
+  /* Stacking cards scene */
+  .cards-scene {
+    position: relative;
+    /* height set by JS */
   }
 
-  .games-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+  .cards-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
   }
 
-  /* Detail sections */
-  .game-detail {
-    padding: 80px 0;
-    border-top: 1px solid rgba(240, 240, 248, 0.05);
+  .game-fullscreen {
+    position: absolute;
+    top: 16vh;
+    left: 21vw;
+    width: 58vw;
+    height: 68vh;
+    border-radius: 20px;
+    overflow: hidden;
+    will-change: transform;
+    transform-origin: center center;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
-  .detail-even {
-    background: rgba(17, 17, 24, 0.5);
+  .gfs-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
   }
 
-  .detail-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.6fr;
-    gap: 64px;
-    align-items: start;
+  .gfs-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0) 60%);
+    z-index: 1;
+    pointer-events: none;
   }
 
-  .detail-grid-reverse {
-    direction: rtl;
+  #neon-jumper .gfs-gradient {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 60%);
   }
 
-  .detail-grid-reverse > * {
-    direction: ltr;
+  .gfs-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 48px;
+    padding: 0 52px 48px;
   }
 
-  .detail-meta {
+  .gfs-left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .gfs-right {
+    flex: 0 0 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .gfs-meta {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -190,126 +245,253 @@ const platformLabels: Record<string, string> = {
     margin-bottom: 16px;
   }
 
-  .detail-genre {
+  .gfs-genre {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-accent);
-    background: rgba(232, 52, 85, 0.1);
+    background: rgba(232, 52, 85, 0.18);
     padding: 4px 12px;
     border-radius: 100px;
   }
 
-  .detail-sep {
-    color: rgba(240, 240, 248, 0.2);
+  .gfs-sep {
+    color: rgba(240, 240, 248, 0.3);
     font-size: 12px;
   }
 
-  .detail-platforms,
-  .detail-year {
+  .gfs-platforms,
+  .gfs-year {
     font-size: 13px;
-    color: var(--color-text-muted);
+    color: rgba(240, 240, 248, 0.55);
   }
 
-  .detail-title {
-    font-size: clamp(26px, 3.2vw, 44px);
+  .gfs-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4.5vw, 76px);
     font-weight: 900;
-    margin-bottom: 16px;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-transform: uppercase;
   }
 
-  .detail-desc {
-    font-size: 15px;
-    color: rgba(240, 240, 248, 0.62);
-    line-height: 1.75;
-    margin-bottom: 28px;
+  .gfs-desc {
+    font-size: 14px;
+    color: rgba(240, 240, 248, 0.7);
+    line-height: 1.7;
   }
 
-  .detail-actions {
+  .gfs-actions {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
-  }
-
-  .detail-cover {
-    width: 100%;
-    border-radius: var(--radius-md);
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    background: var(--color-surface-2);
-  }
-
-  .screenshots-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 12px;
-  }
-
-  .screenshot {
-    border-radius: var(--radius-sm);
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    width: 100%;
-    background: var(--color-surface-2);
   }
 
   /* Bottom CTA */
   .games-cta {
-    padding: 64px 0 96px;
-  }
-
-  .cta-inner {
+    background: #AE80EE;
+    padding: 96px 0;
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    background: var(--color-surface);
-    border-radius: var(--radius-xl);
-    padding: 40px 48px;
-    border: 1px solid rgba(240, 240, 248, 0.06);
   }
 
-  .cta-inner h3 {
-    font-size: clamp(18px, 2.5vw, 28px);
+  .gcta-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .gcta-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  .gcta-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 64px);
     font-weight: 900;
+    line-height: 1.0;
+    text-transform: uppercase;
+    color: #000;
+    margin: 0;
+  }
+
+  .gcta-desc {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.65);
+    max-width: 480px;
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .gcta-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .btn-gcta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    border: 1.5px solid transparent;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a0030;
+    background: #fff;
+    transition: background 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-gcta:hover {
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .btn-gcta-ghost {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+  }
+
+  .btn-gcta-ghost:hover {
+    background: rgba(255, 255, 255, 0.34);
+    border-color: rgba(255, 255, 255, 0.75);
   }
 
   /* Responsive */
   @media (max-width: 1024px) {
-    .games-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .game-fullscreen {
+      left: 5vw;
+      width: 90vw;
+      top: 10vh;
+      height: 80vh;
     }
 
-    .detail-grid,
-    .detail-grid-reverse {
-      grid-template-columns: 1fr;
-      gap: 36px;
-      direction: ltr;
+    .gfs-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 0 32px 40px;
     }
 
-    .detail-grid-reverse > * {
-      direction: ltr;
+    .gfs-right {
+      flex: 0 0 auto;
+      width: 100%;
     }
   }
 
   @media (max-width: 768px) {
-    .page-hero {
-      padding: 108px 0 48px;
+    .games-hero-center {
+      padding-top: 120px;
+      padding-bottom: 60px;
     }
 
-    .games-grid {
-      grid-template-columns: 1fr;
+    .game-fullscreen {
+      left: 3vw;
+      width: 94vw;
+      top: 8vh;
+      height: 84vh;
     }
 
-    .screenshots-row {
-      grid-template-columns: 1fr;
+    .gfs-content {
+      padding: 0 20px 28px;
     }
 
-    .cta-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 32px 24px;
+    .gfs-title {
+      font-size: clamp(28px, 7vw, 48px);
+    }
+
+    .gfs-right {
+      gap: 12px;
     }
   }
 </style>
+
+<script>
+  document.getElementById('site-header')?.classList.add('always-scrolled');
+
+  const scene = document.getElementById('cardsScene') as HTMLElement | null;
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.game-fullscreen'));
+
+  if (scene && cards.length) {
+    const N = cards.length;
+    let STEP = window.innerHeight;
+
+    function setSceneHeight() {
+      STEP = window.innerHeight;
+      // N cards: card 0 visible from start, then N-1 slide-ins, each taking STEP of scroll
+      // Extra 0.5*STEP at end so last card "rests" on screen before CTA
+      scene.style.height = `${(N + 0.5) * STEP}px`;
+    }
+
+    // Animated state — starts with card 0 visible, rest parked below
+    const cur = cards.map((_, i) => ({ ty: i === 0 ? 0 : 110, scale: 1 }));
+
+    function getTargets(scrolled: number) {
+      return cards.map((_, i) => {
+        const slideInStart = (i - 1) * STEP;
+        const activeStart  = i * STEP;
+        let ty = 0, scale = 1;
+
+        if (i === 0) {
+          const t = Math.max(0, Math.min(1, scrolled / STEP));
+          scale = 1 - t * 0.07;
+        } else if (scrolled < slideInStart) {
+          ty = 110;
+        } else if (scrolled < activeStart) {
+          ty = (1 - (scrolled - slideInStart) / STEP) * 110;
+        } else {
+          ty = 0;
+          if (i < N - 1) {
+            const t = Math.max(0, Math.min(1, (scrolled - activeStart) / STEP));
+            scale = 1 - t * 0.07;
+          }
+        }
+
+        return { ty, scale };
+      });
+    }
+
+    const EASE = 0.1; // ease-out: 10% gap closed per frame ≈ 150ms settle at 60fps
+
+    function loop() {
+      const scrolled = Math.max(0, -scene.getBoundingClientRect().top);
+      const targets  = getTargets(scrolled);
+
+      cards.forEach((card, i) => {
+        cur[i].ty    += (targets[i].ty    - cur[i].ty)    * EASE;
+        cur[i].scale += (targets[i].scale - cur[i].scale) * EASE;
+        card.style.transform = `translateY(${cur[i].ty}vh) scale(${cur[i].scale})`;
+      });
+
+      requestAnimationFrame(loop);
+    }
+
+    setSceneHeight();
+    loop();
+
+    window.addEventListener('resize', setSceneHeight, { passive: true });
+  }
+</script>
