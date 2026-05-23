@@ -8,52 +8,114 @@ import { jobs } from '../data/jobs';
   title="Вакансии"
   description="Открытые вакансии студии MAD GAMES — присоединяйся к команде"
 >
-  <!-- Page hero -->
-  <section class="page-hero">
-    <div class="container">
-      <span class="tag reveal">Команда</span>
-      <h1 class="page-title reveal">Вакансии</h1>
-      <p class="page-desc reveal">
+  <!-- ══════════════════════════════════════════
+       FIXED BG: stays pinned to viewport until
+       purple sections scroll over and cover it
+  ══════════════════════════════════════════ -->
+  <div class="jobs-hero-bg" aria-hidden="true">
+    <img src="/images/jobs-hero.png" alt="" class="jobs-hero-img" />
+    <div class="jobs-hero-overlay"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       HERO: 100vh, centered text over fixed bg
+  ══════════════════════════════════════════ -->
+  <section class="jobs-hero">
+    <div class="jobs-hero-content">
+      <span class="jobs-eyebrow">■ Команда</span>
+      <h1 class="jobs-title">Вакансии</h1>
+      <p class="jobs-desc">
         Ищем талантливых людей, которые любят игры. Работаем удалённо,
         двигаемся быстро и делаем вещи с душой.
       </p>
     </div>
   </section>
 
-  <!-- Why us -->
+  <!-- ══════════════════════════════════════════
+       WHY MAD GAMES: scroll-driven perks ticker
+       dark gradient bg — fixed image shows through
+  ══════════════════════════════════════════ -->
   <section class="why-section">
-    <div class="container">
-      <h2 class="why-title reveal">Почему MAD GAMES?</h2>
-      <div class="perks-grid">
-        <div class="perk reveal">
-          <div class="perk-icon" aria-hidden="true">🌍</div>
-          <h4>Полная удалёнка</h4>
-          <p>Работай откуда угодно. Главное — результат</p>
+    <div class="perks-ticker">
+      <div class="perks-track" id="perksTrack">
+        <!-- Set 1 -->
+        <div class="perk-item">
+          <div class="perk-icon-wrap" aria-hidden="true">🌍</div>
+          <div class="perk-info">
+            <h4>Полная удалёнка</h4>
+            <p>Работай откуда угодно. Главное — результат</p>
+          </div>
         </div>
-        <div class="perk reveal" style="--reveal-delay: 80ms">
-          <div class="perk-icon" aria-hidden="true">🚀</div>
-          <h4>Быстрый рост</h4>
-          <p>Небольшая команда = быстрые решения и реальное влияние</p>
+        <span class="perk-sep" aria-hidden="true">✦</span>
+        <div class="perk-item">
+          <div class="perk-icon-wrap" aria-hidden="true">🚀</div>
+          <div class="perk-info">
+            <h4>Быстрый рост</h4>
+            <p>Небольшая команда = быстрые решения и реальное влияние</p>
+          </div>
         </div>
-        <div class="perk reveal" style="--reveal-delay: 160ms">
-          <div class="perk-icon" aria-hidden="true">🎯</div>
-          <h4>Реальные проекты</h4>
-          <p>Твоя работа выходит в релиз и играется сотнями тысяч людей</p>
+        <span class="perk-sep" aria-hidden="true">✦</span>
+        <div class="perk-item">
+          <div class="perk-icon-wrap" aria-hidden="true">🎯</div>
+          <div class="perk-info">
+            <h4>Реальные проекты</h4>
+            <p>Твоя работа выходит в релиз и играется сотнями тысяч людей</p>
+          </div>
         </div>
-        <div class="perk reveal" style="--reveal-delay: 240ms">
-          <div class="perk-icon" aria-hidden="true">🤝</div>
-          <h4>Честная атмосфера</h4>
-          <p>Без бюрократии, с уважением и прямым фидбеком</p>
+        <span class="perk-sep" aria-hidden="true">✦</span>
+        <div class="perk-item">
+          <div class="perk-icon-wrap" aria-hidden="true">🤝</div>
+          <div class="perk-info">
+            <h4>Честная атмосфера</h4>
+            <p>Без бюрократии, с уважением и прямым фидбеком</p>
+          </div>
         </div>
+        <span class="perk-sep" aria-hidden="true">✦</span>
+        <!-- Set 2 – duplicate for seamless loop -->
+        <div class="perk-item" aria-hidden="true">
+          <div class="perk-icon-wrap">🌍</div>
+          <div class="perk-info">
+            <h4>Полная удалёнка</h4>
+            <p>Работай откуда угодно. Главное — результат</p>
+          </div>
+        </div>
+        <span class="perk-sep" aria-hidden="true">✦</span>
+        <div class="perk-item" aria-hidden="true">
+          <div class="perk-icon-wrap">🚀</div>
+          <div class="perk-info">
+            <h4>Быстрый рост</h4>
+            <p>Небольшая команда = быстрые решения и реальное влияние</p>
+          </div>
+        </div>
+        <span class="perk-sep" aria-hidden="true">✦</span>
+        <div class="perk-item" aria-hidden="true">
+          <div class="perk-icon-wrap">🎯</div>
+          <div class="perk-info">
+            <h4>Реальные проекты</h4>
+            <p>Твоя работа выходит в релиз и играется сотнями тысяч людей</p>
+          </div>
+        </div>
+        <span class="perk-sep" aria-hidden="true">✦</span>
+        <div class="perk-item" aria-hidden="true">
+          <div class="perk-icon-wrap">🤝</div>
+          <div class="perk-info">
+            <h4>Честная атмосфера</h4>
+            <p>Без бюрократии, с уважением и прямым фидбеком</p>
+          </div>
+        </div>
+        <span class="perk-sep" aria-hidden="true">✦</span>
       </div>
     </div>
   </section>
 
-  <!-- Job listings -->
+  <!-- ══════════════════════════════════════════
+       JOB LISTINGS — purple bg, white cards
+       (opaque bg covers the fixed hero image)
+  ══════════════════════════════════════════ -->
   <section class="jobs-section">
     <div class="container">
       <div class="jobs-header reveal">
-        <h2 class="section-title">Открытые позиции</h2>
+        <h2 class="jobs-section-title">Открытые позиции</h2>
         <span class="jobs-badge">{jobs.length} вакансии</span>
       </div>
 
@@ -67,7 +129,9 @@ import { jobs } from '../data/jobs';
     </div>
   </section>
 
-  <!-- Application form -->
+  <!-- ══════════════════════════════════════════
+       APPLICATION FORM
+  ══════════════════════════════════════════ -->
   <section class="apply-section" id="apply">
     <div class="container">
       <div class="apply-card reveal">
@@ -151,84 +215,179 @@ import { jobs } from '../data/jobs';
   </section>
 </BaseLayout>
 
+<script>
+  // Force header into scrolled state (dark backdrop) from the start
+  document.getElementById('site-header')?.classList.add('always-scrolled');
+
+  // Fix footer stacking: the fixed hero-bg (z-index:0) paints above non-positioned elements
+  document.querySelector('.footer')?.classList.add('jobs-page-footer');
+
+</script>
+
 <style>
-  /* Page hero */
-  .page-hero {
-    padding: 148px 0 64px;
-    border-bottom: 1px solid rgba(240, 240, 248, 0.05);
+  /* ══ FIXED BACKGROUND IMAGE ══
+     Pinned behind hero + why sections.
+     Purple jobs/apply sections are opaque and cover it on scroll.
+  */
+  .jobs-hero-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
   }
 
-  .page-hero .tag {
-    margin-bottom: 20px;
+  .jobs-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
-  .page-title {
-    font-size: clamp(40px, 6vw, 82px);
+  .jobs-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 16, 0.62);
+  }
+
+  /* ══ HERO ══ */
+  .jobs-hero {
+    position: relative;
+    z-index: 1;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .jobs-hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 0 24px;
+    max-width: 820px;
+  }
+
+  .jobs-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 240, 248, 0.4);
+  }
+
+  .jobs-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 9vw, 120px);
     font-weight: 900;
-    margin-bottom: 20px;
-    line-height: 1;
+    line-height: 0.93;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    text-transform: uppercase;
   }
 
-  .page-desc {
+  .jobs-desc {
     font-size: 16px;
     color: rgba(240, 240, 248, 0.58);
     max-width: 520px;
     line-height: 1.75;
   }
 
-  /* Why section */
+  /* ══ WHY SECTION ══ */
   .why-section {
-    padding: 80px 0 64px;
+    position: relative;
+    z-index: 1;
+    padding: 160px 0;
+    display: flex;
+    align-items: center;
+    /* Gradient: transparent at top so fixed image bleeds in, dark at bottom */
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(10, 10, 16, 0.47) 20%,
+      rgba(10, 10, 16, 0.47) 100%
+    );
   }
 
-  .why-title {
-    font-size: clamp(22px, 3vw, 36px);
-    font-weight: 900;
-    margin-bottom: 40px;
+  /* Perks ticker */
+  .perks-ticker {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
   }
 
-  .perks-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+  @keyframes perks-loop {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
 
-  .perk {
-    background: var(--color-surface);
-    border-radius: var(--radius-md);
-    padding: 28px 22px;
-    border: 1px solid rgba(240, 240, 248, 0.05);
-    transition: border-color 0.3s ease, transform 0.3s ease;
+  .perks-track {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    width: max-content;
+    animation: perks-loop 28s linear infinite;
   }
 
-  .perk:hover {
-    border-color: rgba(255, 140, 32, 0.2);
-    transform: translateY(-4px);
+  .perk-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
   }
 
-  .perk-icon {
-    font-size: 28px;
-    margin-bottom: 14px;
-    line-height: 1;
+  .perk-icon-wrap {
+    display: none;
   }
 
-  .perk h4 {
+  .perk-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .perk-info h4 {
     font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 700;
+    font-size: clamp(36px, 4.5vw, 72px);
+    font-weight: 900;
     color: var(--color-text);
-    margin-bottom: 8px;
+    line-height: 1;
+    white-space: nowrap;
+    margin-bottom: 0;
   }
 
-  .perk p {
-    font-size: 13px;
-    color: var(--color-text-muted);
-    line-height: 1.55;
+  .perk-info p {
+    font-size: clamp(11px, 1.2vw, 15px);
+    color: var(--color-text);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1;
+    max-width: none;
   }
 
-  /* Jobs */
+  .perk-sep {
+    font-size: 28px;
+    color: var(--color-accent);
+    opacity: 0.5;
+    flex-shrink: 0;
+    align-self: center;
+    margin-top: -16px;
+  }
+
+  /* ══ JOBS SECTION — purple, covers fixed bg ══ */
   .jobs-section {
-    padding: 16px 0 80px;
+    position: relative;
+    z-index: 2;
+    background: #AE80EE;
+    padding: 96px 0 80px;
   }
 
   .jobs-header {
@@ -238,19 +397,16 @@ import { jobs } from '../data/jobs';
     margin-bottom: 28px;
   }
 
-  .section-title {
+  .jobs-section-title {
     font-size: clamp(22px, 2.8vw, 34px);
     font-weight: 900;
+    color: #000;
   }
 
   .jobs-badge {
-    background: rgba(232, 52, 85, 0.1);
-    color: var(--color-accent);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    padding: 5px 14px;
-    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
   }
 
   .jobs-list {
@@ -259,9 +415,46 @@ import { jobs } from '../data/jobs';
     gap: 14px;
   }
 
-  /* Apply section */
+  /* White card overrides — JobCard on purple bg */
+  :global(.jobs-section .job-card) {
+    background: #fff;
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  :global(.jobs-section .job-card:hover) {
+    border-color: rgba(232, 52, 85, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+
+  :global(.jobs-section .job-title) {
+    color: #0a0a10;
+  }
+
+  :global(.jobs-section .job-type) {
+    background: #E83455;
+    color: #fff;
+  }
+
+  :global(.jobs-section .job-desc) {
+    color: rgba(10, 10, 16, 0.6);
+  }
+
+  :global(.jobs-section .tech-tag) {
+    background: rgba(10, 10, 16, 0.06);
+    color: rgba(10, 10, 16, 0.55);
+    border-color: rgba(10, 10, 16, 0.1);
+  }
+
+  :global(.jobs-section .apply-btn:hover) {
+    box-shadow: none;
+  }
+
+  /* ══ APPLY SECTION — also covers fixed bg ══ */
   .apply-section {
-    background: #AE80EE;
+    position: relative;
+    z-index: 2;
+    background: #fff;
     padding: 96px 0;
   }
 
@@ -387,24 +580,33 @@ import { jobs } from '../data/jobs';
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #1a0030;
-    background: #fff;
+    color: #fff;
+    background: #0a0a10;
     transition: background 0.2s;
     cursor: pointer;
   }
 
   .form-submit:hover {
-    background: rgba(255, 255, 255, 0.85);
+    background: #1e1e2e;
     border-color: transparent;
     box-shadow: none;
   }
 
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .perks-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  /* Footer fix: give it a stacking context so fixed bg can't bleed through */
+  :global(.footer.jobs-page-footer) {
+    position: relative;
+    z-index: 2;
+  }
 
+  /* always-scrolled header override for this page */
+  :global(.header.always-scrolled) {
+    background: rgba(10, 10, 16, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(240, 240, 248, 0.06);
+  }
+
+  /* ══ RESPONSIVE ══ */
+  @media (max-width: 1024px) {
     .apply-card {
       grid-template-columns: 1fr;
       gap: 40px;
@@ -412,13 +614,9 @@ import { jobs } from '../data/jobs';
   }
 
   @media (max-width: 768px) {
-    .page-hero {
-      padding: 108px 0 48px;
-    }
-
-    .perks-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    .perk-item {
+      min-width: 250px;
+      padding: 20px 22px;
     }
 
     .form-row {
@@ -432,12 +630,6 @@ import { jobs } from '../data/jobs';
     .form-submit {
       width: 100%;
       justify-content: center;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .perks-grid {
-      grid-template-columns: 1fr;
     }
   }
 </style>
