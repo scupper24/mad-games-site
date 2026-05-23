@@ -474,7 +474,7 @@ const platformLabels: Record<string, string> = {
       });
     }
 
-    const EASE = 0.1; // ease-out: 10% gap closed per frame ≈ 150ms settle at 60fps
+    const EASE = 1; // global smooth scroll handles easing; cards track directly
 
     function loop() {
       const scrolled = Math.max(0, -scene.getBoundingClientRect().top);
