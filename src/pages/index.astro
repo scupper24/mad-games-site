@@ -439,6 +439,7 @@ import { games } from '../data/games';
     transform: rotate(var(--r, 0deg));
     will-change: transform;
     transition: none;
+    aspect-ratio: 8 / 5;
   }
 
   .fobj-inner {
@@ -453,12 +454,13 @@ import { games } from '../data/games';
     display: block;
   }
 
-  .fobj-1 { width: 420px; height: 263px; top: 5%;     left: 6%;   }
-  .fobj-2 { width: 360px; height: 225px; top: 5%;     right: 6%;  }
-  .fobj-3 { width: 400px; height: 250px; top: 35%;    right: 4%;  }
-  .fobj-4 { width: 330px; height: 206px; bottom: 12%; left: 6%;   }
-  .fobj-5 { width: 410px; height: 256px; bottom: 5%;  right: 6%;  }
-  .fobj-6 { width: 350px; height: 219px; bottom: 5%;  left: 22%;  }
+  /* widths calibrated to 2560px viewport (2K reference) */
+  .fobj-1 { width: 16.4vw; top: 5%;     left: 6%;   }
+  .fobj-2 { width: 14.1vw; top: 5%;     right: 6%;  }
+  .fobj-3 { width: 15.6vw; top: 35%;    right: 4%;  }
+  .fobj-4 { width: 12.9vw; bottom: 12%; left: 6%;   }
+  .fobj-5 { width: 16.0vw; bottom: 5%;  right: 6%;  }
+  .fobj-6 { width: 13.7vw; bottom: 5%;  left: 22%;  }
 
   .hero-center {
     position: relative;
