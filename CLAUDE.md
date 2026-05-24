@@ -31,14 +31,17 @@ No test or lint runner is configured.
 | Token | Value | Role |
 |---|---|---|
 | `--color-accent` | `#E83455` | Primary red accent |
-| `--color-secondary` | `#FF8C20` | Orange accent |
+| `--color-accent-2` | `#FF8C20` | Orange accent |
 | `--color-bg` | `#0a0a10` | Page background |
-| `--color-surface` | `#111118` / `#181820` | Cards/sections |
+| `--color-surface` | `#111118` | Cards / section bg |
+| `--color-surface-2` | `#181820` | Nested card bg |
 | `--color-text` | `#F0F0F8` | Body text |
 | `--color-text-muted` | `#5e5e78` | Muted text |
 | `--color-accent-purple` | `#AE80EE` | Purple accent (CTA sections bg) |
 
-Fonts: **Unbounded** (`--font-display`, headings) · **Inter** (`--font-body`, body). Fluid sizing via `clamp()`.
+Global easing: `--transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)`.
+
+Fonts: **Unbounded** (`--font-display`, headings) · **Inter** (`--font-body`, body). Fluid sizing via `clamp()`. Note: `BaseLayout.astro` also loads **Figtree** from Google Fonts, but it is not referenced in any CSS variable — `--font-body` still resolves to Inter.
 
 ## Public assets
 
@@ -49,9 +52,11 @@ Fonts: **Unbounded** (`--font-display`, headings) · **Inter** (`--font-body`, b
 
 ## Key interaction patterns
 
+- **Global smooth scroll** (`BaseLayout.astro`): custom RAF-based ease-out scroll (factor 0.025) intercepts `wheel` events on non-touch devices. `scroll-behavior: auto` in `global.css` is intentional — do not change it to `smooth`, as that would conflict with the custom implementation.
 - **Hero parallax** (`index.astro`): RAF loop with sine/cosine ambient drift + mouse-following offset on floating game cards (`data-depth`, `data-rotate` attributes drive per-card intensity).
 - **Stacking game cards** (`games.astro`): `position: sticky` stage + `position: absolute` cards. JS computes translateY/scale targets per-card from scroll position, then lerps current state toward target each RAF frame (EASE=0.1 ≈ 150ms settle). Cards park at `translateY(110vh)` before their turn; last card skips scale-down.
 - **Stats ticker** (`index.astro`): scroll-delta driven; offset resets at −50% of track width for seamless loop.
+- **Perks ticker** (`jobs.astro`): pure CSS `@keyframes perks-loop` animation (not JS-driven). Track is duplicated in HTML for a seamless loop; `animation-play-state` is never paused by hover.
 - **Scroll reveals**: `IntersectionObserver` in `BaseLayout.astro` adds `.visible` to `.reveal` elements; stagger via `--reveal-delay` inline style.
 - **Contact form** (`jobs.astro`): `mailto:` only — no backend.
 
@@ -66,6 +71,14 @@ Sections with `background: #AE80EE` require local overrides for all child elemen
 ## Video backgrounds
 
 Pattern used on `index.astro` (games section) and `games.astro` (hero): `<video autoplay muted loop playsinline>` absolutely positioned with `object-fit: cover`, covered by a semi-transparent overlay div. Overlay opacity typically `rgba(10, 10, 16, 0.62–0.72)`.
+
+## Fixed background pattern (`jobs.astro`)
+
+The jobs hero uses a `position: fixed` image that stays pinned to the viewport. Subsequent sections (with solid or gradient backgrounds) scroll over it, creating a layered reveal effect. This differs from the video background pattern — no `<video>` element is used.
+
+## `VideoEmbed` component
+
+Wraps a YouTube (or any embed) URL in a lazy-loaded 16:9 `<iframe>`. Used for game trailers referenced via `trailerUrl` in `src/data/games.ts`. Currently all `trailerUrl` and `storeUrl` values in games data are placeholder `"#"` links.
 
 ## Path alias
 
