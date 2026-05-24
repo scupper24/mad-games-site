@@ -182,7 +182,7 @@ const currentPath = Astro.url.pathname;
   .mobile-menu {
     display: none;
     flex-direction: column;
-    padding: 24px 20px;
+    padding: 0 20px;
     background: var(--color-surface);
     border-top: 1px solid rgba(240, 240, 248, 0.06);
     overflow: hidden;
@@ -192,6 +192,7 @@ const currentPath = Astro.url.pathname;
 
   .mobile-menu.open {
     max-height: 400px;
+    padding: 24px 20px;
   }
 
   .mobile-link {

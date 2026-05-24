@@ -53,16 +53,50 @@ Fonts: **Unbounded** (`--font-display`, headings) · **Inter** (`--font-body`, b
 ## Key interaction patterns
 
 - **Global smooth scroll** (`BaseLayout.astro`): custom RAF-based ease-out scroll (factor 0.025) intercepts `wheel` events on non-touch devices. `scroll-behavior: auto` in `global.css` is intentional — do not change it to `smooth`, as that would conflict with the custom implementation.
+- **Hero canvas frame sequence** (`index.astro`): 145 JPG frames in `public/images/hero-frames/frame-001.jpg…frame-145.jpg` rendered onto a `<canvas>`. Driven by scroll progress through `.hero-scroll-wrapper { height: 167vh }` wrapping a `position: sticky` `.hero`. **Do NOT put `overflow: hidden` (or `overflow-x: hidden`) on `<html>`** — it breaks the sticky and produces a giant ~67vh gap after the hero. `body { overflow-x: hidden }` alone is safe.
 - **Hero parallax** (`index.astro`): RAF loop with sine/cosine ambient drift + mouse-following offset on floating game cards (`data-depth`, `data-rotate` attributes drive per-card intensity).
 - **Stacking game cards** (`games.astro`): `position: sticky` stage + `position: absolute` cards. JS computes translateY/scale targets per-card from scroll position, then lerps current state toward target each RAF frame (EASE=0.1 ≈ 150ms settle). Cards park at `translateY(110vh)` before their turn; last card skips scale-down.
-- **Stats ticker** (`index.astro`): scroll-delta driven; offset resets at −50% of track width for seamless loop.
+- **Stats ticker** (`index.astro`): scroll-delta driven; offset resets at −50% of track width for seamless loop. Mobile uses a higher `speed` constant (chosen at init via `matchMedia('(max-width: 768px)')`) so the ticker keeps pace with shorter mobile scroll distances.
 - **Perks ticker** (`jobs.astro`): pure CSS `@keyframes perks-loop` animation (not JS-driven). Track is duplicated in HTML for a seamless loop; `animation-play-state` is never paused by hover.
 - **Scroll reveals**: `IntersectionObserver` in `BaseLayout.astro` adds `.visible` to `.reveal` elements; stagger via `--reveal-delay` inline style.
 - **Contact form** (`jobs.astro`): `mailto:` only — no backend.
 
 ## Header behaviour
 
-`Header.astro` adds class `.scrolled` (dark backdrop + blur) when `window.scrollY > 60` via a scroll listener. To force the scrolled appearance on a specific page without touching the shared component, add class `always-scrolled` from that page's `<script>` and override it with `:global(.header.always-scrolled)` in that page's `<style>`. Currently applied on `games.astro`.
+`Header.astro` adds class `.scrolled` (dark backdrop + blur) when `window.scrollY > 60` via a scroll listener. To force the scrolled appearance on a specific page without touching the shared component, add class `always-scrolled` from that page's `<script>` and override it with `:global(.header.always-scrolled)` in that page's `<style>`. Currently applied on `games.astro` and `jobs.astro`.
+
+The mobile menu (`.mobile-menu`) inside the header collapses with `max-height: 0; overflow: hidden`. Because all elements use `box-sizing: border-box`, padding cannot be compressed below its declared value via `max-height` — so vertical padding must be `0` in the collapsed state and re-applied via `.mobile-menu.open { padding: 24px 20px }`. Both `max-height` and `padding` are in the transition list.
+
+## Mobile horizontal-scroll containment
+
+Horizontal scroll on mobile is prevented by `body { overflow-x: hidden }` plus targeted `overflow: hidden` on individual sections whose drifting/absolutely-positioned children can extend beyond the viewport (e.g. `.join-section` contains the `.jobj` drift). Do **not** add `overflow-x` to `<html>` — see hero canvas note above. When introducing new sections with absolute/transform-animated children, add `overflow: hidden` on the section itself rather than relying on a document-level rule.
+
+## CTA-баннеры (по одному в конце каждой страницы)
+
+Каждая страница заканчивается CTA-баннером. Все три — это самостоятельные `<section>` без общего компонента.
+
+| Страница | Секция | Фон | Заголовок |
+|---|---|---|---|
+| `index.astro` | `.join-section` | `#AE80EE` | «Присоединяйся к команде» |
+| `games.astro` | `.games-cta` | `#AE80EE` | «Хочешь работать над нашими играми?» |
+| `jobs.astro` | `.apply-section` | `#fff` | «Хочешь к нам?» |
+
+`index.astro` и `games.astro` — фиолетовые баннеры с кнопками на белом фоне (`.btn-gcta`, `.btn-join`). `jobs.astro` — белый баннер с формой-откликом (`mailto:`).
+
+CTA inner containers (`.join-inner`, `.gcta-inner`, `.apply-info`) use **explicit `margin-bottom` on each child** instead of a uniform parent `gap`. This is needed because the spacing tokens (see below) require *different* gaps between eyebrow→title and title→content — a single parent `gap` cannot express that. Don't re-introduce parent `gap` on these containers.
+
+## Section spacing tokens (eyebrow / title / content)
+
+Applied to every block that has the eyebrow + main title + content structure (the heroes and content-only blocks like the games slider on `/games` are exceptions).
+
+| Pair | Desktop | Mobile (≤768px) |
+|---|---|---|
+| Eyebrow → Title | 24px | 16px |
+| Title → Content (cards/slider/list/desc) | 52px | 32px |
+
+Currently enforced via per-element `margin-bottom` in CTA banners and via parent `gap` / `margin-bottom` in section headers (`.about-header`/`.about-inner`, `.section-header`, `.jobs-header`). When adding a new section, follow the same values and add a mobile override in the existing `@media (max-width: 768px)` block.
+
+Standard horizontal padding on inner containers: **32px desktop, 20px mobile** (matches `.container` in `global.css`).
 
 ## Coloured section pattern (purple CTA)
 
