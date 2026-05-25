@@ -119,8 +119,9 @@ const platformLabels: Record<string, string> = {
   .games-hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(10, 10, 16, 0.62);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     z-index: 1;
+    pointer-events: none;
   }
 
   .games-hero-center {
